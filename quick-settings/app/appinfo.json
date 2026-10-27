@@ -1,0 +1,18 @@
+{
+  "id": "org.local.quicksettings",
+  "version": "0.3.5",
+  "vendor": "Local",
+  "type": "web",
+  "main": "index.html",
+  "title": "Réglages rapides",
+  "icon": "quick-settings.png",
+  "uiRevision": 2,
+  "transparent": true,
+  "defaultWindowType": "overlay",
+  "noSplashOnLaunch": true,
+  "disableBackHistoryAPI": true,
+  "supportQuickStart": true,
+  "handlesRelaunch": true,
+  "closeOnBackground": true,
+  "requiredPermissions": ["all"]
+}

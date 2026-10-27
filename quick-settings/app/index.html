@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Réglages rapides</title><link rel="stylesheet" href="style.css">
+  <script src="catalog.js" defer></script><script src="save-queue.js" defer></script><script src="../../shared/tv-motion.js" defer></script><script src="main.js" defer></script>
+</head>
+<body>
+  <main id="panel" aria-label="Paramètres">
+    <header><h1>Paramètres</h1><span id="context">Réglages rapides</span><button id="close" aria-label="Fermer"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <div class="layout">
+      <nav aria-label="Catégories">
+        <button class="tab selected" data-section="Rapides"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>Rapides</button>
+        <button class="tab" data-section="Image"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3M5 15l5-5 4 4 3-3 4 4"/></svg>Image</button>
+        <button class="tab" data-section="Son"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3zM16 8a6 6 0 0 1 0 8M19 5a10 10 0 0 1 0 14"/></svg>Son</button>
+        <button class="tab" data-section="Général"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/><circle cx="8" cy="5" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="10" cy="19" r="2"/></svg>Général</button>
+        <button class="tab" data-section="Assistance"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4M12 17h.01"/></svg>Aide</button>
+        <div class="nav-bottom"><button id="refresh"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10a8 8 0 1 0-2 8M20 4v6h-6"/></svg>Actualiser</button><button id="original"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>Paramètres LG</button></div>
+      </nav>
+      <div class="content"><div class="page-heading"><button id="page-back" aria-label="Revenir aux rubriques" hidden>‹</button><h2 id="section-title">Réglages rapides</h2></div><div id="controls"></div></div>
+    </div>
+    <footer><p id="help">Les réglages s’appliquent automatiquement.</p><span id="status" role="status"></span></footer>
+    <p class="hint">↑ ↓ Naviguer · ← → Ajuster · OK Options · Retour Fermer · Bleu Catégories</p>
+  </main>
+  <section id="choices" role="dialog" aria-modal="true" aria-labelledby="choice-title" hidden>
+    <h2 id="choice-title"></h2><div id="choice-list"></div><p>OK Choisir · Retour Annuler</p>
+  </section>
+</body>
+</html>

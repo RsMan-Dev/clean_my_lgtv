@@ -1,0 +1,56 @@
+'use strict';
+const assert = require('assert');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const cp = require('child_process');
+const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'clean-home-test-'));
+const db = path.join(dir, 'db.json');
+const fake = path.join(dir, 'luna');
+fs.writeFileSync(fake, `#!/usr/bin/env node
+const fs = require('fs');
+const db = process.env.TEST_DB;
+const state = JSON.parse(fs.readFileSync(db));
+const uri = process.argv[process.argv.length - 2];
+const arg = JSON.parse(process.argv[process.argv.length - 1]);
+let result;
+if (uri.endsWith('/getSystemSettings')) result = {returnValue:true, settings:{defaultApps:state.defaults}};
+else if (uri.endsWith('/getAppInfo')) result = state.apps[arg.id] ? {returnValue:true, appInfo:{appCategory:['home']}} : {returnValue:false,errorText:'Invalid appId specified'};
+else if (uri.endsWith('/setDefaultApp')) { state.defaults[arg.category] = arg.appId; fs.writeFileSync(db, JSON.stringify(state)); result = {returnValue:true}; }
+else throw new Error(uri);
+console.log(JSON.stringify(result));
+`, {mode: 0o755});
+const env = {...process.env, CLEAN_HOME_STATE: path.join(dir, 'state'), CLEAN_HOME_LUNA: fake, CLEAN_HOME_APP_INDEX:path.join(dir,'index.html'), TEST_DB: db};
+const cli = path.join(__dirname, 'home.js');
+const custom = 'org.local.cleanlauncher';
+const original = 'com.webos.app.home';
+const save = value => fs.writeFileSync(db, JSON.stringify(value));
+const read = () => JSON.parse(fs.readFileSync(db));
+const run = action => cp.spawnSync(process.execPath, [cli, action], {env, encoding: 'utf8'});
+try {
+  save({defaults:{MembershipApp:'membership'}, apps:{[custom]:true,[original]:true}});
+  const enabled = run('enable');
+  assert.strictEqual(enabled.status, 0, JSON.stringify(enabled));
+  assert.deepStrictEqual(read().defaults, {MembershipApp:'membership',home:custom});
+  assert.strictEqual(run('enable').status, 0);
+  assert.strictEqual(run('disable').status, 0);
+  assert.deepStrictEqual(read().defaults, {MembershipApp:'membership',home:original});
+  const state = read(); state.defaults.home = 'other.home'; state.apps['other.home'] = true; save(state);
+  assert.strictEqual(run('enable').status, 0);
+  assert.strictEqual(run('disable').status, 0);
+  assert.strictEqual(read().defaults.home, 'other.home');
+  assert.strictEqual(run('enable').status, 0);
+  const removed = read(); delete removed.apps[custom]; save(removed);
+  fs.writeFileSync(env.CLEAN_HOME_APP_INDEX,'installed');
+  assert.notStrictEqual(run('guard').status, 0);
+  assert.strictEqual(read().defaults.home, custom);
+  fs.unlinkSync(env.CLEAN_HOME_APP_INDEX);
+  assert.strictEqual(run('guard').status, 0);
+  assert.strictEqual(read().defaults.home, 'other.home');
+  assert.notStrictEqual(run('enable').status, 0);
+  assert.strictEqual(read().defaults.home, 'other.home');
+  const changed = read(); changed.defaults.home = original; save(changed);
+  assert.strictEqual(run('disable').status, 0);
+  assert.strictEqual(read().defaults.home, original);
+  console.log('Home routing tests passed');
+} finally { fs.rmSync(dir, {recursive:true, force:true}); }

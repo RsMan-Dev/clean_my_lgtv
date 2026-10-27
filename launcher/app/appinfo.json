@@ -1,0 +1,17 @@
+{
+  "id": "org.local.cleanlauncher",
+  "version": "0.2.4",
+  "vendor": "Local",
+  "type": "web",
+  "main": "index.html",
+  "title": "Accueil",
+  "icon": "icon.png",
+  "uiRevision": 2,
+  "defaultWindowType": "card",
+  "appCategory": ["home"],
+  "noSplashOnLaunch": true,
+  "disableBackHistoryAPI": true,
+  "handlesRelaunch": true,
+  "closeOnBackground": false,
+  "requiredPermissions": ["all"]
+}

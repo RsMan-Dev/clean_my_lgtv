@@ -1,0 +1,5 @@
+node_modules/
+.build/
+*.ipk
+__pycache__/
+*.pyc

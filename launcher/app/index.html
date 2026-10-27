@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accueil</title><link rel="stylesheet" href="style.css"><script src="../../shared/tv-motion.js" defer></script><script src="main.js" defer></script>
+</head>
+<body>
+  <div class="landscape" aria-hidden="true"><div class="ridge far"></div><div class="ridge near"></div></div>
+  <main>
+    <header>
+      <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-7H9v7H3z"/></svg><span>Accueil</span></div>
+      <div class="time"><time id="clock">—</time><span id="date"></span></div>
+    </header>
+    <section class="intro" aria-live="polite"><div class="intro-copy"><p id="eyebrow"></p><h1 id="featured">Accueil</h1><p id="description"></p></div><div id="source-preview" aria-hidden="true" hidden></div></section>
+    <div id="browse">
+    <section class="sources-section"><div class="section-heading"><h2>Sources</h2><span id="source-count"></span></div><div class="sources" id="sources"></div></section>
+    <section class="apps-section"><div class="section-heading"><h2>Vos applications</h2><span>OK pour ouvrir</span></div><div class="tiles" id="favorites"></div></section>
+    <footer data-row="3">
+      <button id="all-apps"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Toutes les applications</button>
+      <button id="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>Paramètres</button>
+      <button id="lg-home">Accueil LG ↗</button>
+      <span id="status" role="status"></span>
+    </footer>
+    </div>
+  </main>
+  <section id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <div class="drawer-header"><div><p>VOTRE TÉLÉVISEUR</p><h2 id="drawer-title">Toutes les applications</h2></div><button id="drawer-close" aria-label="Fermer">×</button></div>
+    <div class="drawer-options"><p id="drawer-help">OK pour ouvrir · Retour pour fermer</p><button id="columns" hidden></button></div><div id="app-grid"></div>
+  </section>
+</body>
+</html>

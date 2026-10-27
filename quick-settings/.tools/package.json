@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@webos-tools/cli": "^3.2.6",
+    "vscode-langservers-extracted": "^4.10.0"
+  }
+}
